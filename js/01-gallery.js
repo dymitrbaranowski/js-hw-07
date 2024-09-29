@@ -1,17 +1,25 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
-// console.log(galleryItems);
-const ulContainer = document.querySelector(".js-gallery");
+console.log(galleryItems);
+const ulContainer = document.querySelector(".gallery");
 const galleryMarkup = createGalleryMarkup(galleryItems);
 ulContainer.insertAdjacentHTML("beforeend", galleryMarkup);
-ulContainer.addEventListener("click", onulContainerClick);
+ulContainer.addEventListener("click", onUlContainerClick);
 
-function onulContainerClick(evt) {
+function onUlContainerClick(evt) {
   evt.preventDefault();
   if (!evt.target.classList.contains("gallery__image")) {
     return;
   }
-  console.log(evt.target.dataset.source);
+
+  const selectedImage = evt.target.getAttribute("data-source");
+
+  const instance = basicLightbox.create(`
+       <img src="${selectedImage}" width="800" height="600">
+  `);
+
+  instance.show();
+  ulContainer.addEventListener("click", onUlContainerClick);
 }
 
 function createGalleryMarkup(galleryItems) {
@@ -32,4 +40,3 @@ function createGalleryMarkup(galleryItems) {
     })
     .join("");
 }
-console.log(createGalleryMarkup(galleryItems));
