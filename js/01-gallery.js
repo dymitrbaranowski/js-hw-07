@@ -1,6 +1,5 @@
 import { galleryItems } from "./gallery-items.js";
-// Change code below this line
-console.log(galleryItems);
+
 const ulContainer = document.querySelector(".gallery");
 const galleryMarkup = createGalleryMarkup(galleryItems);
 ulContainer.insertAdjacentHTML("beforeend", galleryMarkup);
@@ -19,7 +18,12 @@ function onUlContainerClick(evt) {
   `);
 
   instance.show();
-  ulContainer.addEventListener("click", onUlContainerClick);
+
+  document.addEventListener("keyup", (evt) => {
+    if (evt.code === "Escape") {
+      instance.close();
+    }
+  });
 }
 
 function createGalleryMarkup(galleryItems) {
